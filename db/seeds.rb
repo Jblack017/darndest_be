@@ -5,9 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Father.destroy_all()
 Kid.destroy_all()
 
-Father.create(name: "Joshua Blackham")
 rogue = Kid.create(name: "Rogue", age: 2)
+kahlan = Kid.create(name: "Kahlan", age: 10)
 Comment.create(kid_id:rogue[:id], content: "Bless You Rescue")
+Comment.create(kid_id:rogue[:id], content: "no no no no no")
+Comment.create(kid_id:kahlan[:id], content: "I Eat Toes")
+Comment.create(kid_id:kahlan[:id], content: "mmmmmm Taste so good")
