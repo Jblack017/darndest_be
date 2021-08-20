@@ -6,5 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Father.destroy_all()
+Comment.destroy_all()
 
 Father.create(name: "Joshua Blackham")
+Comment.create(content: "Bless You Rescue")
