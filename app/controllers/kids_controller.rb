@@ -19,7 +19,11 @@ class KidsController < ApplicationController
   def update
     @kid = Kid.find(params[:id])
 
-      if @kid.update(content: params[:content])
+      if @kid
+        age = params[:age] ? params[:age] : @kid.age
+        name = params[:name] ? params[:name] : @kid.name
+        @kid.update(name: name, age: age)
+
       return render status: :accepted, except: [:created_at, :updated_at]
     else
       return render json: {error: @kid.errors.full_messages}
