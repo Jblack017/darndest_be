@@ -37,7 +37,7 @@ class KidsController < ApplicationController
     if @new_kid.valid?
       @new_kid.save
       
-      return render json: @new_kid, status: :created, except: [:created_at, :updated_at]
+      return render json: @new_kid, status: :created, except: [:created_at, :updated_at], include: :comments
     else
       return render json: {error: @new_kid.errors.full_messages,}
     end
