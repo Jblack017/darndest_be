@@ -4,25 +4,25 @@ class KidsController < ApplicationController
     @kids = Kid.all
 
     render json: @kids, 
+    methods: :age, 
     except: [:created_at, :updated_at], 
-    :include => { :comments => {:except => [:created_at, :updated_at, :kid_id]}}
+    :include => {:comments => {:except => [:created_at, :updated_at, :kid_id]}}
   end
 
   def show
     @kid = Kid.find(params[:id])
-
-    render json: @kid, 
-    except: [:created_at, :updated_at], 
-    :include => { :comments => {:except => [:created_at, :updated_at, :kid_id]}}
+    render json: @kid, methods: :age, 
+    :include => {:comments => {:except => [:created_at, :updated_at, :kid_id]}}
   end
 
   def update
     @kid = Kid.find(params[:id])
 
       if @kid
-        age = params[:age] ? params[:age] : @kid.age
         name = params[:name] ? params[:name] : @kid.name
-        @kid.update(name: name, age: age)
+        nickname = params[:nickname] ? params[:nickname] : @kid.nickname
+        birthday = params[:birthday] ? params[:birthday] : @kid.birthday
+        @kid.update(name: name, nickname: nickname, birthday: birthday)
 
       return render status: :accepted, except: [:created_at, :updated_at]
     else
@@ -32,7 +32,7 @@ class KidsController < ApplicationController
   end
 
   def create
-    @new_kid = Kid.create!(name: params[:name], age: params[:age])
+    @new_kid = Kid.create!(name: params[:name], nickname: params[:nickname], birthday: params[:birthday])
 
     if @new_kid.valid?
       @new_kid.save
