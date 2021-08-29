@@ -9,6 +9,7 @@ Kid.destroy_all()
 
 rogue = Kid.create(name: "Rogue", nickname: "Pierogi", birthday: Date.new(2019, 3, 25))
 kahlan = Kid.create(name: "Kahlan", nickname: "Bubba", birthday: Date.new(2011, 6, 24))
+george = Kid.create(name: "George", nickname: "Buddy", birthday: Date.new(2021, 8, 29))
 Comment.create(kid: rogue, content: "Bless You Rescue")
 Comment.create(kid: rogue, content: "no no no no no")
 Comment.create(kid: rogue, content: "I Eat Toes")

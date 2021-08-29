@@ -3,7 +3,7 @@ class Kid < ApplicationRecord
 
 
   def age
-    (Date.current() - birthday).to_i / 365
+    Date.current() > birthday ? (Date.current() - birthday).to_i / 365 : (birthday - Date.current()).to_i / 365
   end
 
 end
