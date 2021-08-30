@@ -7,12 +7,15 @@ class KidsController < ApplicationController
     methods: :age, 
     except: [:created_at, :updated_at], 
     :include => {:comments => {:except => [:created_at, :updated_at, :kid_id]}}
+
   end
 
   def show
     @kid = Kid.find(params[:id])
+
     render json: @kid, methods: :age, 
     :include => {:comments => {:except => [:created_at, :updated_at, :kid_id]}}
+
   end
 
   def update
@@ -25,8 +28,10 @@ class KidsController < ApplicationController
         @kid.update(name: name, nickname: nickname, birthday: birthday)
 
       return render status: :accepted, except: [:created_at, :updated_at]
+
     else
       return render json: {error: @kid.errors.full_messages}
+
     end
     
   end
@@ -37,9 +42,14 @@ class KidsController < ApplicationController
     if @new_kid.valid?
       @new_kid.save
       
-      return render json: @new_kid, status: :created, except: [:created_at, :updated_at], include: :comments
+      return render json: @new_kid, 
+      status: :created, 
+      except: [:created_at, :updated_at], 
+      include: :comments, methods: :age
+
     else
       return render json: {error: @new_kid.errors.full_messages,}
+
     end
 
   end
@@ -51,8 +61,10 @@ class KidsController < ApplicationController
       @kid.destroy
       
       return render status: :accepted
+
     else
       return render status: :not_found
+      
     end
 
   end
