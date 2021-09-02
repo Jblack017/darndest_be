@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
 
-    def create
-    @new_comment = Comment.create!(kid_id: params[:kid_id], content: params[:content])
+  def create
+  @new_comment = Comment.create!(kid_id: params[:kid_id], content: params[:content], quoted: params[:quoted])
 
     if @new_comment.valid?
       @new_comment.save
@@ -13,24 +13,32 @@ class CommentsController < ApplicationController
 
   end
 
-    def update
+  def update
     @comment = Comment.find(params[:id])
 
-      if @comment.update(content: params[:content])
-      return render status: :accepted, except: [:created_at, :updated_at]
+      if @comment
+        content = params[:content] ? params[:content] : @comment.content
+        quoted = params[:quoted] ? params[:quoted] : @comment.quoted
+        @comment.update(content: content, quoted: quoted)
+
+      return render json: @comment, status: :accepted, except: [:created_at, :updated_at, :kid_id, :id]
+
     else
       return render json: {error: @comment.errors.full_messages}
+
     end
     
   end
   
   def destroy
-    @comment = Comment.find(params[:id])
+  @comment = Comment.find(params[:id])
 
-      if @comment.destroy
-      return render status: :accepted, except: [:created_at, :updated_at]
+    if @comment.destroy
+      return render status: :accepted
+
     else
-      return render json: {error: @comment.errors.full_messages}
+      return render status: :not_found
+
     end
 
   end
