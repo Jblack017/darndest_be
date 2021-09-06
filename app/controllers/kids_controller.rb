@@ -6,7 +6,7 @@ class KidsController < ApplicationController
     render json: @kids, 
     methods: :age, 
     except: [:created_at, :updated_at], 
-    :include => {:comments => {:except => [:created_at, :updated_at, :kid_id]}}
+    :include => {:comments => {:except => [:created_at, :updated_at]}}
 
   end
 
@@ -14,7 +14,7 @@ class KidsController < ApplicationController
     @kid = Kid.find(params[:id])
 
     render json: @kid, methods: :age, 
-    :include => {:comments => {:except => [:created_at, :updated_at, :kid_id]}}
+    :include => {:comments => {:except => [:created_at, :updated_at]}}
 
   end
 
